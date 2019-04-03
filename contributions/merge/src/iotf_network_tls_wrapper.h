@@ -25,7 +25,13 @@
 #include "iot_socket.h"
 
 //Include mbedtls specific header files
-#include "mbedTLS.h"
+#include "mbedtls/debug.h"
+#include "mbedtls/entropy.h"
+#include "mbedtls/ctr_drbg.h"
+#include "mbedtls/ssl.h"
+#include "mbedtls/net_sockets.h"
+#include "mbedtls/pk.h"
+#include "mbedtls/x509.h"
 
 #include "iotf_utils.h"
 

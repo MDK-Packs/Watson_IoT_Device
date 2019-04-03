@@ -75,7 +75,7 @@ cp -vrf $CONTRIB_MERGE/* $PACK_BUILD/
 cp -f  $PACK_BUILD/LICENSE $PACK_BUILD/LICENSE.txt 
 
 # Run Pack Check and generate PackName file
-$UTILITIES_DIR/$UTILITIES_OS/PackChk.exe $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc -n PackName.txt
+$UTILITIES_DIR/$UTILITIES_OS/PackChk.exe $PACK_BUILD/$PACK_VENDOR.$PACK_NAME.pdsc -n PackName.txt -x M362 -x M382
 errorlevel=$?
 
 if [ $errorlevel -ne 0 ]; then
