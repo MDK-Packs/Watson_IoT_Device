@@ -72,6 +72,7 @@ Follow these steps to create a simple application that connects to the IBM Watso
     * **Network:Service:DNS Client**
     * **Network:Interface:ETH**
     * **Network:CORE:IPv4 Release**
+    * **Compiler:I/O:File**
     * **File System:CORE:LFN**
     * **File System:Drive:Memory Card** (or a different Drive depending on your system)
     * **CMSIS Driver:Flash:MCI (API)** (or a different driver depending on your File System Drive)
@@ -131,8 +132,8 @@ The **Watson_IoT_Device** pack includes code samples that can be used to test th
     * Change application thread creation (include the attribute defined above):<br>
       `osThreadNew(app_main, NULL, &app_main_attr);`
     * Add an include for the File System and Network libraries (beginning of file):<br>
-      `#inlcude "rl_fs.h"`<br>
-      `#inlcude "rl_net.h"`
+      `#include "rl_fs.h"`<br>
+      `#include "rl_net.h"`
     * Add a prototype for the example's top level function:<br>
       `extern int helloWorld (void);`
     * Add File System and Network initialization in the `app_main` function:<br>

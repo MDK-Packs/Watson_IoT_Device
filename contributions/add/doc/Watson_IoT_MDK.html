@@ -1258,6 +1258,7 @@
 <li><strong>Network:Service:DNS Client</strong></li>
 <li><strong>Network:Interface:ETH</strong></li>
 <li><strong>Network:CORE:IPv4 Release</strong></li>
+<li><strong>Compiler:I/O:File</strong></li>
 <li><strong>File System:CORE:LFN</strong></li>
 <li><strong>File System:Drive:Memory Card</strong> (or a different Drive depending on your system)</li>
 <li><strong>CMSIS Driver:Flash:MCI (API)</strong> (or a different driver depending on your File System Drive)</li>
@@ -1311,7 +1312,7 @@ Optional (for <code>printf</code> debug output on the console):
 <ul>
 <li>Add an attribute for an increased stack size for the application thread. Sample requires a thread stack size of 8 KB:<br> <code>const osThreadAttr_t app_main_attr = { .stack_size = 8192U };</code></li>
 <li>Change application thread creation (include the attribute defined above):<br> <code>osThreadNew(app_main, NULL, &amp;app_main_attr);</code></li>
-<li>Add an include for the File System and Network libraries (beginning of file):<br> <code>#inlcude &quot;rl_fs.h&quot;</code><br> <code>#inlcude &quot;rl_net.h&quot;</code></li>
+<li>Add an include for the File System and Network libraries (beginning of file):<br> <code>#include &quot;rl_fs.h&quot;</code><br> <code>#include &quot;rl_net.h&quot;</code></li>
 <li>Add a prototype for the example’s top level function:<br> <code>extern int helloWorld (void);</code></li>
 <li>Add File System and Network initialization in the <code>app_main</code> function:<br> <code>uint32_t addr;</code><br><br> <code>finit(&quot;M0:&quot;);</code><br> <code>fmount(&quot;M0:&quot;);</code><br><br> <code>netInitialize();</code><br> <code>do {</code><br>   <code>osDelay(500U);</code><br>   <code>netIF_GetOption(NET_IF_CLASS_ETH | 0, netIF_OptionIP4_Address, (uint8_t *)&amp;addr, sizeof (addr));</code><br> <code>} while (addr == 0U);</code></li>
 <li>Add a call to the example’s top level function into the <code>app_main</code> function after above mentioned initialization (replace the <code>for</code> loop):<br> <code>helloWorld();</code></li>
