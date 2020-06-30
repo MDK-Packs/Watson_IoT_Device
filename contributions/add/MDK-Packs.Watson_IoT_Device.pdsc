@@ -7,7 +7,7 @@
   <url>https://github.com/MDK-Packs/Pack/raw/master/Watson_IoT_Device/</url>
   <license>LICENSE.txt</license>
   <releases>
-    <release version="1.0.2">
+    <release version="1.0.2" date="2020-06-30">
       Fixed potential Hard Fault when not using client side certificates (USE_CERT=0)
       Added missing dependency on MQTTClient-C
     </release>
