@@ -413,7 +413,7 @@ int connectiotf(iotfclient  *client)
            LOG(logHdr,logStr);
        }
        else {
-	   tls_connect_params tls_params = {NULL,NULL,NULL,NULL,NULL};
+	   tls_connect_params tls_params = {NULL,"","","",NULL};
 	   strCopy(&tls_params.pServerCertLocation,client->cfg.serverCertPath);
 	   if(useCerts){
 	       strCopy(&tls_params.pRootCACertLocation,client->cfg.rootCACertPath);

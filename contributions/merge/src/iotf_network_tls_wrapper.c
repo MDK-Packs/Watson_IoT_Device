@@ -277,10 +277,10 @@ static uint32_t TickFreq;
         mbedtls_x509_crt_init( &(tlsInitParams->cacert) );
         mbedtls_ctr_drbg_init( &(tlsInitParams->ctr_drbg) );
         mbedtls_entropy_init( &(tlsInitParams->entropy) );
-        if(useClientCerts){
+//      if(useClientCerts){
             mbedtls_x509_crt_init(&(tlsInitParams->clicert));
             mbedtls_pk_init(&(tlsInitParams->pkey));
-        }
+//      }
         strcpy(tlsInitParams->clientName,"mbed_tls_client");
 
         if((rc = mbedtls_ctr_drbg_seed( &(tlsInitParams->ctr_drbg), mbedtls_entropy_func, &(tlsInitParams->entropy),
