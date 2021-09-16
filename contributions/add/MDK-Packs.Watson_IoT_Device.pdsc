@@ -7,7 +7,7 @@
   <url>https://github.com/MDK-Packs/Pack/raw/master/Watson_IoT_Device/</url>
   <license>LICENSE.txt</license>
   <releases>
-    <release version="1.0.3">
+    <release version="1.0.3" date="2021-09-16">
       Fixed potential Hard Fault (use snprintf instead of sprintf)
       Components made available also for Cortex-M35P and Cortex-M55
     </release>
