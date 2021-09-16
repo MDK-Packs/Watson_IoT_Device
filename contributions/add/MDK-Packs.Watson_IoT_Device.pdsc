@@ -7,6 +7,9 @@
   <url>https://github.com/MDK-Packs/Pack/raw/master/Watson_IoT_Device/</url>
   <license>LICENSE.txt</license>
   <releases>
+    <release version="1.0.3">
+      Fixed potential Hard Fault (use snprintf instead of sprintf)
+    </release>
     <release version="1.0.2" date="2020-06-30">
       Fixed potential Hard Fault when not using client side certificates (USE_CERT=0)
       Added missing dependency on MQTTClient-C
@@ -52,7 +55,7 @@
     </condition>
   </conditions>
   <components>
-    <component Cclass="IoT Client" Cgroup="Watson" Cversion="1.0.1" condition="Watson IoT Client">
+    <component Cclass="IoT Client" Cgroup="Watson" Cversion="1.0.2" condition="Watson IoT Client">
       <description>IBM Watson Cloud IoT Device Client</description>
       <RTE_Components_h>
         <!-- the following content goes into file 'RTE_Components.h' -->

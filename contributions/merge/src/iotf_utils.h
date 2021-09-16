@@ -25,6 +25,9 @@
  #define LOG(logHeader,msg)       if(logger != NULL) fprintf(logger,"%s:%s\n",logHeader,msg);
  #define LOG_BUF 512
 
+ #define LOG_HDR(...) snprintf(logHdr, sizeof(logHdr), __VA_ARGS__)
+ #define LOG_STR(...) snprintf(logStr, sizeof(logStr), __VA_ARGS__)
+
  extern FILE *logger;
 
 //Utility Functions

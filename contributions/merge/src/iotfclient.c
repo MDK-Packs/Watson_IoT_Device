@@ -42,7 +42,7 @@ extern char logStr[LOG_BUF];
 int initialize_configfile(iotfclient  *client, char *configFilePath, int isGatewayClient)
 {
        enableLogging();
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        Config configstr = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1883,0};
@@ -51,8 +51,8 @@ int initialize_configfile(iotfclient  *client, char *configFilePath, int isGatew
 
        rc = get_config(configFilePath, &configstr);
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"org:%s , domain:%s , type: %s , id:%s , token: %s , useCerts: %d , serverCertPath: %s",
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("org:%s , domain:%s , type: %s , id:%s , token: %s , useCerts: %d , serverCertPath: %s",
 		configstr.org,configstr.domain,configstr.type,configstr.id,configstr.authtoken,configstr.useClientCertificates,
 		configstr.serverCertPath);
        LOG(logHdr,logStr);
@@ -68,8 +68,8 @@ int initialize_configfile(iotfclient  *client, char *configFilePath, int isGatew
 	       goto exit;
        }
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"useCertificates: %d",configstr.useClientCertificates);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("useCertificates: %d",configstr.useClientCertificates);
        LOG(logHdr,logStr);
 
        if(configstr.useClientCertificates){
@@ -79,8 +79,8 @@ int initialize_configfile(iotfclient  *client, char *configFilePath, int isGatew
 		       rc = MISSING_INPUT_PARAM;
 		       goto exit;
 	       }
-	       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	       sprintf(logStr,"CACertPath:%s , clientCertPath:%s , clientKeyPath: %s",
+	       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	       LOG_STR("CACertPath:%s , clientCertPath:%s , clientKeyPath: %s",
 			configstr.rootCACertPath,configstr.clientCertPath,configstr.clientKeyPath);
 	       LOG(logHdr,logStr);
        }
@@ -90,8 +90,8 @@ int initialize_configfile(iotfclient  *client, char *configFilePath, int isGatew
        else
 	       client->isQuickstart = 0;
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"isQuickStart Mode: %d",client->isQuickstart);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("isQuickStart Mode: %d",client->isQuickstart);
        LOG(logHdr,logStr);
 
        if(isGatewayClient){
@@ -105,15 +105,15 @@ int initialize_configfile(iotfclient  *client, char *configFilePath, int isGatew
        else
 	       client->isGateway = 0;
 
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"isGateway Client: %d",client->isGateway);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("isGateway Client: %d",client->isGateway);
 	LOG(logHdr,logStr);
 
        client->cfg = configstr;
 
  exit:
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -143,14 +143,14 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
 	       char *rootCACertPath, char *clientCertPath,char *clientKeyPath, int isGatewayClient)
 {
        enableLogging();
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        Config configstr = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1883,0};
        int rc = 0;
 
-       	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"org:%s , domain:%s , type: %s , id:%s , token: %s , useCerts: %d , serverCertPath: %s",
+       	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("org:%s , domain:%s , type: %s , id:%s , token: %s , useCerts: %d , serverCertPath: %s",
 		       orgId,domainName,deviceType,deviceId,authToken,useCerts,serverCertPath);
 	LOG(logHdr,logStr);
 
@@ -174,8 +174,8 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
        strCopy(&configstr.type, deviceType);
        strCopy(&configstr.id, deviceId);
 
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"cfgstr.domain:%s , cfgstr.type:%s , cfgstr.id: %s",configstr.domain,configstr.type,configstr.id);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("cfgstr.domain:%s , cfgstr.type:%s , cfgstr.id: %s",configstr.domain,configstr.type,configstr.id);
 	LOG(logHdr,logStr);
 
        if((strcmp(orgId,"quickstart") != 0)) {
@@ -187,8 +187,8 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
 	       strCopy(&configstr.authmethod, authmethod);
 	       strCopy(&configstr.authtoken, authToken);
 
-	       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	       sprintf(logStr,"cfgstr.authmethod:%s , cfgstr.token:%s ",configstr.authmethod,configstr.authtoken);
+	       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	       LOG_STR("cfgstr.authmethod:%s , cfgstr.token:%s ",configstr.authmethod,configstr.authtoken);
 	       LOG(logHdr,logStr);
 
 	       if(serverCertPath == NULL)
@@ -199,8 +199,8 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
 	       else
 		       strCopy(&configstr.serverCertPath,serverCertPath);
 
-	       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	       sprintf(logStr,"cfgstr.serverCertPath:%s",configstr.serverCertPath);
+	       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	       LOG_STR("cfgstr.serverCertPath:%s",configstr.serverCertPath);
 	       LOG(logHdr,logStr);
 
 	       if(useCerts){
@@ -209,11 +209,11 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
 		       strCopy(&configstr.clientKeyPath,clientKeyPath);
 		       configstr.useClientCertificates = 1;
 
-		       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-		       sprintf(logStr,"cfgstr.CACertPath:%s , cfgstr.clientCertPath:%s , cfgstr.clientKeyPath: %s",
+		       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+		       LOG_STR("cfgstr.CACertPath:%s , cfgstr.clientCertPath:%s , cfgstr.clientKeyPath: %s",
 				configstr.rootCACertPath,configstr.clientCertPath,configstr.clientKeyPath);
 		       LOG(logHdr,logStr);
-		       sprintf(logStr,"cfgstr.useCertificates:%d",configstr.useClientCertificates);
+		       LOG_STR("cfgstr.useCertificates:%d",configstr.useClientCertificates);
 		       LOG(logHdr,logStr);
 	       }
 	       client->isQuickstart = 0;
@@ -222,8 +222,8 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
        else
 	       client->isQuickstart = 1;
 
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"isQuickStart Mode: %d Port: %d",client->isQuickstart,configstr.port);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("isQuickStart Mode: %d Port: %d",client->isQuickstart,configstr.port);
 	LOG(logHdr,logStr);
 
        if(isGatewayClient){
@@ -237,15 +237,15 @@ int initialize(iotfclient  *client, char *orgId, char* domainName, char *deviceT
        else
 	       client->isGateway = 0;
 
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"isGateway Client: %d",client->isGateway);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("isGateway Client: %d",client->isGateway);
 	LOG(logHdr,logStr);
 
        client->cfg = configstr;
 
 exit:
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -254,7 +254,7 @@ exit:
 
 // This is the function to read the config from the device.cfg file
 int get_config(char * filename, Config * configstr) {
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        int rc = 0;
@@ -267,8 +267,8 @@ int get_config(char * filename, Config * configstr) {
        }
        char line[256];
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"Default domainName: %s",configstr->domain);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("Default domainName: %s",configstr->domain);
        LOG(logHdr,logStr);
 
        while (fgets(line, 256, prop) != NULL) {
@@ -283,8 +283,8 @@ int get_config(char * filename, Config * configstr) {
 	      value = strtok(NULL, "=");
 	      value = trim(value);
 
-	      sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	      sprintf(logStr,"Property: %s , Value: %s",prop,value);
+	      LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	      LOG_STR("Property: %s , Value: %s",prop,value);
 	      LOG(logHdr,logStr);
 
 	      if (strcmp(prop, "org") == 0){
@@ -294,8 +294,8 @@ int get_config(char * filename, Config * configstr) {
 		  if(strcmp(configstr->org,"quickstart") !=0)
 		     configstr->port = 8883;
 
-		  sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-		  sprintf(logStr,"cfgstr.org: %s , cfgstr.port: %d",configstr->org,configstr->port);
+		  LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+		  LOG_STR("cfgstr.org: %s , cfgstr.port: %d",configstr->org,configstr->port);
 		  LOG(logHdr,logStr);
 	       }
 	      else if (strcmp(prop, "domain") == 0){
@@ -304,8 +304,8 @@ int get_config(char * filename, Config * configstr) {
 		  else
 		     strCopy(&configstr->domain, value);
 
-		  sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-		  sprintf(logStr,"cfgstr.domain: %s ",configstr->domain);
+		  LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+		  LOG_STR("cfgstr.domain: %s ",configstr->domain);
 		  LOG(logHdr,logStr);
 	       }
 	      else if (strcmp(prop, "type") == 0){
@@ -330,8 +330,8 @@ int get_config(char * filename, Config * configstr) {
 		  else
 		     strCopy(&configstr->serverCertPath, value);
 
-		  sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-		  sprintf(logStr,"cfgstr.serverCertPath: %s ",configstr->serverCertPath);
+		  LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+		  LOG_STR("cfgstr.serverCertPath: %s ",configstr->serverCertPath);
 		  LOG(logHdr,logStr);
 	       }
 	      else if (strcmp(prop, "rootCACertPath") == 0){
@@ -355,8 +355,8 @@ int get_config(char * filename, Config * configstr) {
 		strCopy(&configstr->domain,"internetofthings.ibmcloud.com");
 
  exit:
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -371,7 +371,7 @@ int get_config(char * filename, Config * configstr) {
 */
 int connectiotf(iotfclient  *client)
 {
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        int rc = 0;
@@ -382,8 +382,8 @@ int connectiotf(iotfclient  *client)
 
        MQTTPacket_connectData data = MQTTPacket_connectData_initializer;
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"useCerts:%d , isGateway:%d , qsMode:%d",useCerts,isGateway,qsMode);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("useCerts:%d , isGateway:%d , qsMode:%d",useCerts,isGateway,qsMode);
        LOG(logHdr,logStr);
 
        char messagingUrl[120];
@@ -397,8 +397,8 @@ int connectiotf(iotfclient  *client)
        else
 	  sprintf(clientId, "d:%s:%s:%s", client->cfg.org, client->cfg.type, client->cfg.id);
 
-       	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"messagingUrl:%s , hostname:%s , port:%d , clientId:%s",messagingUrl,hostname,port,clientId);
+       	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("messagingUrl:%s , hostname:%s , port:%d , clientId:%s",messagingUrl,hostname,port,clientId);
 	LOG(logHdr,logStr);
 
        NewNetwork(&client->n);
@@ -408,8 +408,8 @@ int connectiotf(iotfclient  *client)
 	       goto exit;
 	   }
 
-	   sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	   sprintf(logStr,"RC from ConnectNetwork:%d",rc);
+	   LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	   LOG_STR("RC from ConnectNetwork:%d",rc);
            LOG(logHdr,logStr);
        }
        else {
@@ -422,8 +422,8 @@ int connectiotf(iotfclient  *client)
 	   }
 	   strCopy(&tls_params.pDestinationURL,hostname);
 
-	   sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	   sprintf(logStr,"tls_params: { %s , %s , %s , %s , %s }",tls_params.pServerCertLocation,
+	   LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	   LOG_STR("tls_params: { %s , %s , %s , %s , %s }",tls_params.pServerCertLocation,
                    tls_params.pRootCACertLocation,tls_params.pDeviceCertLocation,tls_params.pDevicePrivateKeyLocation,
 		   tls_params.pDestinationURL);
 	    LOG(logHdr,logStr);
@@ -438,8 +438,8 @@ int connectiotf(iotfclient  *client)
 	   client->n.mqttwrite = tls_write;
 	   client->n.mqttread = tls_read;
 
-	   sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	   sprintf(logStr,"RC from tlsconnect: %d",rc);
+	   LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	   LOG_STR("RC from tlsconnect: %d",rc);
 	   LOG(logHdr,logStr);
 	}
 
@@ -457,8 +457,8 @@ int connectiotf(iotfclient  *client)
        data.keepAliveInterval = keepAliveInterval;
        data.cleansession = 1;
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"MQTT Connect Data: { %d , %d , %s , %s, %s , %d , %d }",data.willFlag,data.MQTTVersion,
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("MQTT Connect Data: { %d , %d , %s , %s, %s , %d , %d }",data.willFlag,data.MQTTVersion,
 	       data.clientID.cstring,data.username.cstring,data.password.cstring,data.keepAliveInterval,data.cleansession);
        LOG(logHdr,logStr);
 
@@ -472,14 +472,14 @@ int connectiotf(iotfclient  *client)
 	       printf("%s Connected to %s in registered mode using %s\n",clientType,hostname,connType);
 	   }
 
-	   sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	   sprintf(logStr,"RC from MQTTConnect: %d",rc);
+	   LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	   LOG_STR("RC from MQTTConnect: %d",rc);
 	   LOG(logHdr,logStr);
        }
 
 exit:
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 
         if(rc != 0){
@@ -487,7 +487,7 @@ exit:
                 freeConfig(&client->cfg);
         }
 
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 
         return rc;
@@ -503,7 +503,7 @@ exit:
 * @return int - Return code from MQTT Publish
 **/
 int publishData(MQTTClient *mqttClient, char *topic, char *payload, int qos){
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        int rc = -1;
@@ -514,15 +514,15 @@ int publishData(MQTTClient *mqttClient, char *topic, char *payload, int qos){
        pub.payload = payload;
        pub.payloadlen = strlen(payload);
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"MQTTMessage = { qos: %d  retained: %d  payload: %s  payloadLen: %d}",
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("MQTTMessage = { qos: %d  retained: %d  payload: %s  payloadLen: %d}",
                         pub.qos,pub.retained,(char *)pub.payload,pub.payloadlen);
        LOG(logHdr,logStr);
 
        rc = MQTTPublish(mqttClient, topic , &pub);
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"rc = %d",rc);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("rc = %d",rc);
        LOG(logHdr,logStr);
        LOG(logHdr,"exit::");
 
@@ -536,14 +536,14 @@ int publishData(MQTTClient *mqttClient, char *topic, char *payload, int qos){
 */
 int yield(iotfclient  *client, int time_ms)
 {
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        int rc = 0;
        rc = MQTTYield(&client->c, time_ms);
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"rc = %d",rc);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("rc = %d",rc);
        LOG(logHdr,logStr);
        LOG(logHdr,"exit::");
 
@@ -557,13 +557,13 @@ int yield(iotfclient  *client, int time_ms)
 */
 int isConnected(iotfclient  *client)
 {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
        int result = client->c.isconnected;
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"isConnected = %d",result);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("isConnected = %d",result);
        LOG(logHdr,logStr);
        LOG(logHdr,"exit::");
 
@@ -578,7 +578,7 @@ int isConnected(iotfclient  *client)
 
 int disconnect(iotfclient  *client)
 {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
        int rc = 0;
@@ -587,8 +587,8 @@ int disconnect(iotfclient  *client)
        client->n.disconnect(&(client->n),client->isQuickstart);
        freeConfig(&(client->cfg));
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"rc = %d",rc);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_STR("rc = %d",rc);
        LOG(logHdr,logStr);
        LOG(logHdr,"exit::");
 
@@ -624,7 +624,7 @@ int retry_connection(iotfclient  *client)
 }
 
 void freeConfig(Config *cfg){
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        freePtr(cfg->org);
@@ -637,7 +637,7 @@ void freeConfig(Config *cfg){
        freePtr(cfg->clientCertPath);
        freePtr(cfg->clientKeyPath);
 
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"exit::");
 
        disableLogging();

@@ -58,9 +58,9 @@
                         }
                         if((logger = fopen(logFile,"a"))!= NULL){
                                 printf("Logger initialized with log file - %s\n",logFile);
-                                sprintf(logStr,"%s","==============  iotfclient.log Entry ==============");
+                                LOG_STR("%s","==============  iotfclient.log Entry ==============");
                                 LOG("",logStr);
-                                //sprintf(logStr,"%s",__TIMESTAMP__);
+                                //LOG_STR("%s",__TIMESTAMP__);
                                 //LOG("",logStr);
                         }
                         else{
@@ -85,7 +85,7 @@
  void disableLogging(){
         if(logger != NULL){
 
-  	       //sprintf(logStr,"%s",__TIMESTAMP__);
+  	       //LOG_STR("%s",__TIMESTAMP__);
   	       //LOG("",logStr);
   	       LOG("","==============  iotfclient.log Exit ==============");
   	       fclose(logger);
@@ -98,14 +98,14 @@
  **/
  int isEMBDCHomeDefined(){
          enableLogging();
-         sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+         LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
          LOG(logHdr,"entry::");
 
          char *embdC_home = getenv("IOT_EMBDC_HOME");
          int rc = 0;
 
-         sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-         sprintf(logStr,"IOT_EMBDC_HOME = %s",embdC_home);
+         LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+         LOG_STR("IOT_EMBDC_HOME = %s",embdC_home);
          LOG(logHdr,logStr);
 
          if(embdC_home != NULL && strlen(embdC_home)>1)
@@ -113,8 +113,8 @@
 	 else
 	   rc =  0;
 
-         sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-         sprintf(logStr,"rc = %d",rc);
+         LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+         LOG_STR("rc = %d",rc);
          LOG(logHdr,logStr);
          LOG(logHdr,"exit::");
 
@@ -130,7 +130,7 @@
 *
 **/
  void buildPath(char **ptr, char *filePath){
-         sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+         LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
          LOG(logHdr,"entry::");
 
          int pathLen;
@@ -150,8 +150,8 @@
          }
          (*ptr)[pathLen]='\0';
 
-         sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-         sprintf(logStr,"Built Path = %s",*ptr);
+         LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+         LOG_STR("Built Path = %s",*ptr);
          LOG(logHdr,logStr);
          LOG(logHdr,"exit::");
  }
@@ -160,13 +160,13 @@
  * @return - void
  **/
  void getServerCertPath(char** path){
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	buildPath(path,"/IoTFoundation.pem");
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Server Certificate Path = %s",*path);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Server Certificate Path = %s",*path);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
  }
@@ -177,13 +177,13 @@
  **/
  void getSamplesPath(char** path){
         enableLogging();
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	buildPath(path,"/samples/");
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Samples Path = %s",*path);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Samples Path = %s",*path);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -196,7 +196,7 @@
  **/
  void getTestCfgFilePath(char** path, char* fileName){
         enableLogging();
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
         buildPath(path,"/test/");
@@ -204,15 +204,15 @@
         *path = (char*)realloc(*path,strlen(*path)+strlen(fileName)+1);
         strcat(*path,fileName);
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Test Config File Path = %s",*path);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Test Config File Path = %s",*path);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
  }
 
 //Trimming characters
  char *trim(char *str) {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
  	size_t len = 0;
@@ -245,8 +245,8 @@
  		*endp = '\0';
  	}
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"String After trimming = %s",str);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("String After trimming = %s",str);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -259,7 +259,7 @@
  * @return - void
  **/
  void strCopy(char **dest, char *src){
-         sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+         LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
          LOG(logHdr,"entry::");
 
          if(strlen(src) >= 1){
@@ -267,17 +267,17 @@
                  *dest = (char*)malloc(sizeof(char)*(strlen(src)+1));
                  strcpy(*dest,src);
 
-                 sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                 sprintf(logStr,"Destination String = %s",*dest);
+                 LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                 LOG_STR("Destination String = %s",*dest);
                  LOG(logHdr,logStr);
          }
          else{
-                 sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                 sprintf(logStr,"Source String is empty");
+                 LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                 LOG_STR("Source String is empty");
                  LOG(logHdr,logStr);
          }
 
-         sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+         LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
          LOG(logHdr,"exit::");
  }
 
@@ -286,18 +286,18 @@
  * @return - void
  **/
  void freePtr(char* p){
-         sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+         LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
          LOG(logHdr,"entry::");
 
          if(p != NULL)
             free(p);
          else {
-                 sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                 sprintf(logStr,"NULL Pointer cannot be freed");
+                 LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                 LOG_STR("NULL Pointer cannot be freed");
                  LOG(logHdr,logStr);
          }
 
-         sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+         LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
          LOG(logHdr,"exit::");
  }
 

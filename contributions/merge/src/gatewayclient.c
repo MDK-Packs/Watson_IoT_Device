@@ -46,7 +46,7 @@ int subscribeCount = 0;
 */
 int publishDeviceEvent(iotfclient  *client, char *deviceType, char *deviceId, char *eventType, char *eventFormat, char* data, enum QoS qos)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -55,8 +55,8 @@ int publishDeviceEvent(iotfclient  *client, char *deviceType, char *deviceId, ch
 
 	sprintf(publishTopic, "iot-2/type/%s/id/%s/evt/%s/fmt/%s", deviceType, deviceId, eventType, eventFormat);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Calling publishData to publish to topic - %s",publishTopic);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Calling publishData to publish to topic - %s",publishTopic);
         LOG(logHdr,logStr);
 
 	rc = publishData(&client->c, publishTopic , data, qos);
@@ -67,8 +67,8 @@ int publishDeviceEvent(iotfclient  *client, char *deviceType, char *deviceId, ch
 		rc = publishData(&client->c, publishTopic, data, qos);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("rc = %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -88,7 +88,7 @@ int publishDeviceEvent(iotfclient  *client, char *deviceType, char *deviceId, ch
 */
 int publishGatewayEvent(iotfclient  *client, char *eventType, char *eventFormat, char* data, enum QoS qos)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -97,8 +97,8 @@ int publishGatewayEvent(iotfclient  *client, char *eventType, char *eventFormat,
 
 	sprintf(publishTopic, "iot-2/type/%s/id/%s/evt/%s/fmt/%s", client->cfg.type, client->cfg.id, eventType, eventFormat);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Calling publishData to publish to topic - %s",publishTopic);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Calling publishData to publish to topic - %s",publishTopic);
         LOG(logHdr,logStr);
 
 	rc = publishData(&client->c, publishTopic , data, qos);
@@ -109,8 +109,8 @@ int publishGatewayEvent(iotfclient  *client, char *eventType, char *eventFormat,
 		rc = publishData(&client->c, publishTopic , data, qos);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("rc = %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -125,7 +125,7 @@ int publishGatewayEvent(iotfclient  *client, char *eventType, char *eventFormat,
 */
 int subscribeToGatewayCommands(iotfclient  *client)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -136,16 +136,16 @@ int subscribeToGatewayCommands(iotfclient  *client)
 
 	sprintf(subscribeTopic, "iot-2/type/%s/id/%s/cmd/+/fmt/+", client->cfg.type, client->cfg.id);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Calling MQTTSubscribe for subscribing to gateway commands");
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Calling MQTTSubscribe for subscribing to gateway commands");
         LOG(logHdr,logStr);
 
 	rc = MQTTSubscribe(&client->c, subscribeTopic, QOS2, gatewayMessageArrived);
 
 	subscribeTopics[subscribeCount++] = subscribeTopic;
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"RC from MQTTSubscribe - %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("RC from MQTTSubscribe - %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -159,7 +159,7 @@ int subscribeToGatewayCommands(iotfclient  *client)
 */
 int subscribeToDeviceCommands(iotfclient  *client, char* deviceType, char* deviceId, char* command, char* format, int qos)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -170,16 +170,16 @@ int subscribeToDeviceCommands(iotfclient  *client, char* deviceType, char* devic
 
 	sprintf(subscribeTopic, "iot-2/type/%s/id/%s/cmd/%s/fmt/%s", deviceType, deviceId, command, format);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Calling MQTTSubscribe for subscribing to device commands");
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Calling MQTTSubscribe for subscribing to device commands");
         LOG(logHdr,logStr);
 
 	rc = MQTTSubscribe(&client->c, subscribeTopic, (enum QoS)qos, gatewayMessageArrived);
 
 	subscribeTopics[subscribeCount++] = subscribeTopic;
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"RC from MQTTSubscribe - %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("RC from MQTTSubscribe - %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -194,7 +194,7 @@ int subscribeToDeviceCommands(iotfclient  *client, char* deviceType, char* devic
 
 int disconnectGateway(iotfclient  *client)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = 0;
@@ -207,8 +207,8 @@ int disconnectGateway(iotfclient  *client)
 	for(count = 0; count < subscribeCount ; count++)
 		free(subscribeTopics[count]);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"RC from iotf disconnect function - %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("RC from iotf disconnect function - %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -218,7 +218,7 @@ int disconnectGateway(iotfclient  *client)
 //Handler for all commands. Invoke the callback.
 void gatewayMessageArrived(MessageData* md)
 {
-       sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+       LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
        LOG(logHdr,"entry::");
 
        if(cbGateway != 0) {
@@ -245,20 +245,20 @@ void gatewayMessageArrived(MessageData* md)
 
 	       free(topic);
 
-	       sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	       sprintf(logStr,"Calling registered callabck to process the arrived message");
+	       LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	       LOG_STR("Calling registered callabck to process the arrived message");
 	       LOG(logHdr,logStr);
 
 	       (*cbGateway)(type,id,commandName, format, payload,payloadlen);
        }
        else{
-	       sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	       sprintf(logStr,"No registered callback function to process the arrived message");
+	       LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	       LOG_STR("No registered callback function to process the arrived message");
 	       LOG(logHdr,logStr);
        }
 
-       sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-       sprintf(logStr,"Returning from %s",__func__);
+       LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+       LOG_STR("Returning from %s",__func__);
        LOG(logHdr,logStr);
        LOG(logHdr,"exit::");
 }
@@ -271,24 +271,24 @@ void gatewayMessageArrived(MessageData* md)
 */
 void setGatewayCommandHandler(iotfclient *client, commandCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	cbGateway = handler;
 
 	if(cbGateway != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered callabck to process the arrived message");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered callabck to process the arrived message");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Callabck not registered to process the arrived message");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Callabck not registered to process the arrived message");
                 LOG(logHdr,logStr);
         }
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Returning from %s",__func__);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Returning from %s",__func__);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 }

@@ -37,7 +37,7 @@
 
  int publishEvent(iotfclient  *client, char *eventType, char *eventFormat, char* data, enum QoS qos)
  {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
         int rc = -1;
@@ -46,8 +46,8 @@
 
  	sprintf(publishTopic, "iot-2/evt/%s/fmt/%s", eventType, eventFormat);
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Calling publishData to publish to topic - %s",publishTopic);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Calling publishData to publish to topic - %s",publishTopic);
         LOG(logHdr,logStr);
 
  	rc = publishData(&(client->c),publishTopic,data,qos);
@@ -58,8 +58,8 @@
  		rc = publishData(&(client->c),publishTopic,data,qos);
  	}
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"rc = %d",rc);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("rc = %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -74,19 +74,19 @@
  */
  int subscribeCommands(iotfclient  *client)
  {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
         int rc = -1;
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Calling MQTTSubscribe for subscribing to device commands");
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Calling MQTTSubscribe for subscribing to device commands");
         LOG(logHdr,logStr);
 
         rc = MQTTSubscribe(&client->c, "iot-2/cmd/+/fmt/+", QOS0, messageArrived);
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"RC from MQTTSubscribe - %d",rc);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("RC from MQTTSubscribe - %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -96,7 +96,7 @@
  //Handler for all commands. Invoke the callback.
  void messageArrived(MessageData* md)
  {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
  	if(cbDevice != 0) {
@@ -115,8 +115,8 @@
  		strtok(NULL, "/");
  		char *format = strtok(NULL, "/");
 
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Calling registered callabck to process the arrived message");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Calling registered callabck to process the arrived message");
                 LOG(logHdr,logStr);
 
  		(*cbDevice)(commandName, format, payload);
@@ -125,13 +125,13 @@
 
  	}
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"No registered callback function to process the arrived message");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("No registered callback function to process the arrived message");
                 LOG(logHdr,logStr);
         }
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Returning from %s",__func__);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Returning from %s",__func__);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
  }
@@ -144,24 +144,24 @@
  */
  void setCommandHandler(iotfclient  *client, commandCallback handler)
  {
-        sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+        LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
         cbDevice = handler;
 
         if(cbDevice != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered callabck to process the arrived message");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered callabck to process the arrived message");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Callabck not registered to process the arrived message");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Callabck not registered to process the arrived message");
                 LOG(logHdr,logStr);
         }
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"Returning from %s",__func__);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("Returning from %s",__func__);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
  }

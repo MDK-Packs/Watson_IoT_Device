@@ -64,14 +64,14 @@ volatile int interrupt = 0;
 */
 int initialize_configfile_dm(char *configFilePath)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
 	rc = initialize_configfile(&dmClient.deviceClient, configFilePath,0);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("rc = %d",rc);
         LOG(logHdr,logStr);
         LOG(logHdr,"exit::");
 
@@ -97,7 +97,7 @@ int initialize_dm(char *orgId, char* domainName, char *deviceType, char *deviceI
 		  char *authmethod, char *authToken, char *serverCertPath, int useCerts,
 		  char *rootCACertPath, char *clientCertPath, char *clientKeyPath)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -105,8 +105,8 @@ int initialize_dm(char *orgId, char* domainName, char *deviceType, char *deviceI
 			authmethod, authToken,serverCertPath,useCerts, rootCACertPath,
 			clientCertPath,clientKeyPath,0);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -120,7 +120,7 @@ int initialize_dm(char *orgId, char* domainName, char *deviceType, char *deviceI
 */
 int connectiotf_dm()
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = isConnected(&dmClient.deviceClient);
@@ -131,8 +131,8 @@ int connectiotf_dm()
 
 	rc = connectiotf(&dmClient.deviceClient);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -155,14 +155,14 @@ int connectiotf_dm()
 
 int publishEvent_dm(char *eventType, char *eventFormat, unsigned char* data, enum QoS qos)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
 	rc = publishEvent(&dmClient.deviceClient, eventType, eventFormat, (char *)data, qos);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -177,13 +177,13 @@ int publishEvent_dm(char *eventType, char *eventFormat, unsigned char* data, enu
 */
 void setCommandHandler_dm(commandCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	setCommandHandler(&dmClient.deviceClient,handler );//handler
 	cb = handler;
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -196,23 +196,23 @@ void setCommandHandler_dm(commandCallback handler)
 
 void setManagedHandler_dm(commandCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	cb = handler;
 
 	if(cb != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered Manage callabck");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered Manage callabck");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Manage callabck not registered");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Manage callabck not registered");
                 LOG(logHdr,logStr);
         }
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -225,23 +225,23 @@ void setManagedHandler_dm(commandCallback handler)
 
 void setRebootHandler(commandCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	cbReboot = handler;
 
 	if(cbReboot != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered Reboot callabck");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered Reboot callabck");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Reboot callabck not registered");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Reboot callabck not registered");
                 LOG(logHdr,logStr);
         }
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -254,23 +254,23 @@ void setRebootHandler(commandCallback handler)
 
 void setFactoryResetHandler(commandCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	cbFactoryReset = handler;
 
 	if(cbFactoryReset != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered FactoryReset callabck");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered FactoryReset callabck");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"FactoryReset callabck not registered");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("FactoryReset callabck not registered");
                 LOG(logHdr,logStr);
         }
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -283,23 +283,23 @@ void setFactoryResetHandler(commandCallback handler)
 
 void setFirmwareDownloadHandler(actionCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	cbFirmwareDownload = handler;
 
 	if(cbFirmwareDownload != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered FirmwareDownload callabck");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered FirmwareDownload callabck");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"FirmwareDownload callabck not registered");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("FirmwareDownload callabck not registered");
                 LOG(logHdr,logStr);
         }
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -312,23 +312,23 @@ void setFirmwareDownloadHandler(actionCallback handler)
 
 void setFirmwareUpdateHandler(actionCallback handler)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	cbFirmwareUpdate = handler;
 
 	if(cbFirmwareDownload != NULL){
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"Registered FirmwareUpdate callabck");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("Registered FirmwareUpdate callabck");
                 LOG(logHdr,logStr);
         }
         else{
-                sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-                sprintf(logStr,"FirmwareUpdate callabck not registered");
+                LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+                LOG_STR("FirmwareUpdate callabck not registered");
                 LOG(logHdr,logStr);
         }
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -339,15 +339,15 @@ void setFirmwareUpdateHandler(actionCallback handler)
 */
 int subscribeCommands_dm()
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
 
 	rc = subscribeCommands(&dmClient.deviceClient);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc from subscribeCommands = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc from subscribeCommands = %d",rc);
 	LOG(logHdr,logStr);
 
 	if(rc >=0){
@@ -355,13 +355,13 @@ int subscribeCommands_dm()
 		c= &(dmClient.deviceClient.c);
 		// Call back handles all the requests and responses received from the Watson IoT platform
 		rc = MQTTSubscribe(c, "iotdm-1/#", QOS0, onMessage);
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"rc from MQTTSubscribe = %d",rc);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("rc from MQTTSubscribe = %d",rc);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -377,14 +377,14 @@ int subscribeCommands_dm()
 */
 int yield_dm(int time_ms)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = 0;
 	rc = yield(&dmClient.deviceClient, time_ms);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -409,14 +409,14 @@ int isConnected_dm()
 
 int disconnect_dm()
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = 0;
 	rc = disconnect(&dmClient.deviceClient);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -451,7 +451,7 @@ int disconnect_dm()
 */
 void publishManageEvent(long lifetime, int supportFirmwareActions,int supportDeviceActions, char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char uuid_str[40];
@@ -465,13 +465,13 @@ void publishManageEvent(long lifetime, int supportFirmwareActions,int supportDev
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -488,7 +488,7 @@ void publishManageEvent(long lifetime, int supportFirmwareActions,int supportDev
  */
 void publishUnManageEvent(char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char uuid_str[40];
@@ -501,13 +501,13 @@ void publishUnManageEvent(char* reqId)
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -534,7 +534,7 @@ void publishUnManageEvent(char* reqId)
  */
 void updateLocation(double latitude, double longitude, double elevation, char* measuredDateTime, double accuracy, char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -551,13 +551,13 @@ void updateLocation(double latitude, double longitude, double elevation, char* m
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -586,7 +586,7 @@ void updateLocation(double latitude, double longitude, double elevation, char* m
  */
 void updateLocationEx(double latitude, double longitude, double elevation, char* measuredDateTime,char* updatedDateTime, double accuracy, char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -603,13 +603,13 @@ void updateLocationEx(double latitude, double longitude, double elevation, char*
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -627,7 +627,7 @@ void updateLocationEx(double latitude, double longitude, double elevation, char*
  */
 void addErrorCode(int errNum, char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char uuid_str[40];
@@ -641,13 +641,13 @@ void addErrorCode(int errNum, char* reqId)
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -662,7 +662,7 @@ void addErrorCode(int errNum, char* reqId)
  */
 void clearErrorCodes(char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char uuid_str[40];
@@ -677,13 +677,13 @@ void clearErrorCodes(char* reqId)
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -706,7 +706,7 @@ void clearErrorCodes(char* reqId)
  */
 void addLog(char* message, char* data ,int severity, char* reqId)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char uuid_str[40];
@@ -714,8 +714,8 @@ void addLog(char* message, char* data ,int severity, char* reqId)
 	generateUUID(uuid_str);
 	strcpy(currentRequestID,uuid_str);
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"currentRequestID = %s",currentRequestID);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("currentRequestID = %s",currentRequestID);
         LOG(logHdr,logStr);
 
 	time_t t = 0;
@@ -724,21 +724,21 @@ void addLog(char* message, char* data ,int severity, char* reqId)
 	char payload[125];
 	sprintf(payload,"{\"d\":{\"message\":\"%s\",\"timestamp\":\"%s\",\"data\":\"%s\",\"severity\":%d},\"reqId\":\"%s\"}",message,updatedDateTime,data,severity, uuid_str);
 
-        sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-        sprintf(logStr,"payload = %s",payload);
+        LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+        LOG_STR("payload = %s",payload);
         LOG(logHdr,logStr);
 
 	rc = publish(ADD_DIAG_LOG, payload );
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -752,7 +752,7 @@ void addLog(char* message, char* data ,int severity, char* reqId)
  *        (200 means success, otherwise unsuccessful)
  */
 void clearLogs(char* reqId){
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char uuid_str[40];
@@ -767,13 +767,13 @@ void clearLogs(char* reqId){
 	if(rc == SUCCESS){
 		strcpy(reqId, uuid_str);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId = %s",reqId);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId = %s",reqId);
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -790,7 +790,7 @@ void clearLogs(char* reqId){
  */
 int changeState(int rc)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char response[100];
@@ -799,8 +799,8 @@ int changeState(int rc)
 	sprintf(response, "{\"rc\":\"%d\",\"message\":\"%s\",\"reqId\":\"%s\"}",rc,msg,currentRequestID);
 	int res = publishActionResponse(RESPONSE, response);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"publishActionResponse = %d",res);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("publishActionResponse = %d",res);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -818,7 +818,7 @@ int changeState(int rc)
  */
 int changeFirmwareState(int state)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char firmwareMsg[300];
@@ -830,17 +830,17 @@ int changeFirmwareState(int state)
 				state);
 		rc = publishActionResponse(NOTIFY, firmwareMsg);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"publishActionResponse = %d",rc);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("publishActionResponse = %d",rc);
 		LOG(logHdr,logStr);
 	} else{
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"mgmt.firmware is not in observe state");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("mgmt.firmware is not in observe state");
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -858,7 +858,7 @@ int changeFirmwareState(int state)
  */
 int changeFirmwareUpdateState(int state)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char firmwareMsg[300];
@@ -870,17 +870,17 @@ int changeFirmwareUpdateState(int state)
 				dmClient.DeviceData.mgmt.firmware.state,state);
 		rc = publishActionResponse(NOTIFY, firmwareMsg);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"publishActionResponse = %d",rc);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("publishActionResponse = %d",rc);
 		LOG(logHdr,logStr);
 	} else{
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"mgmt.firmware is not in observe state");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("mgmt.firmware is not in observe state");
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -890,7 +890,7 @@ int changeFirmwareUpdateState(int state)
 // Utility function to publish the message to Watson IoT
 int publish(char* publishTopic, char* data)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -900,8 +900,8 @@ int publish(char* publishTopic, char* data)
 	pub.payload = data;
 	pub.payloadlen = strlen(data);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Topic - %s Payload - %s",publishTopic,data);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Topic - %s Payload - %s",publishTopic,data);
 	LOG(logHdr,logStr);
 
 	//signal(SIGINT, sigHandler);
@@ -911,8 +911,8 @@ int publish(char* publishTopic, char* data)
 	{
 		rc = MQTTPublish(&dmClient.deviceClient.c, publishTopic , &pub);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"RC from MQTTPublish = %d",rc);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("RC from MQTTPublish = %d",rc);
 		LOG(logHdr,logStr);
 
 		if(rc == SUCCESS) {
@@ -922,8 +922,8 @@ int publish(char* publishTopic, char* data)
 			osDelay(2000U);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -933,7 +933,7 @@ int publish(char* publishTopic, char* data)
 //Publish actions response to IoTF platform
 int publishActionResponse(char* publishTopic, char* data)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = -1;
@@ -943,23 +943,23 @@ int publishActionResponse(char* publishTopic, char* data)
 	pub.payload = data;
 	pub.payloadlen = strlen(data);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Topic - %s Payload - %s",publishTopic,data);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Topic - %s Payload - %s",publishTopic,data);
 	LOG(logHdr,logStr);
 
 
 	rc = MQTTPublish(&dmClient.deviceClient.c, publishTopic , &pub);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"RC from MQTTPublish = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("RC from MQTTPublish = %d",rc);
 	LOG(logHdr,logStr);
 
 	if(rc == SUCCESS) {
 		rc = yield(&dmClient.deviceClient, 100);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 
@@ -969,7 +969,7 @@ int publishActionResponse(char* publishTopic, char* data)
 //Utility for LocationUpdate Handler
 void updateLocationHandler(double latitude, double longitude, double elevation, char* measuredDateTime,char* updatedDateTime, double accuracy)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
         int rc = -1;
@@ -979,8 +979,8 @@ void updateLocationHandler(double latitude, double longitude, double elevation, 
 
         rc = publish(UPDATE_LOCATION, data);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"rc = %d",rc);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("rc = %d",rc);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -988,7 +988,7 @@ void updateLocationHandler(double latitude, double longitude, double elevation, 
 // Utility function to generate Unique Identifier
 void generateUUID(char* uuid_str)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char GUID[40];
@@ -1014,8 +1014,8 @@ void generateUUID(char* uuid_str)
 	}
 	strcpy(uuid_str , GUID);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"uuid_str = %s",uuid_str);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("uuid_str = %s",uuid_str);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -1023,7 +1023,7 @@ void generateUUID(char* uuid_str)
 // Utility function to get message from the return code
 void getMessageFromReturnCode(int rc, char* msg)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	switch(rc)
@@ -1039,8 +1039,8 @@ void getMessageFromReturnCode(int rc, char* msg)
 		break;
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"msg = %s",msg);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("msg = %s",msg);
 	LOG(logHdr,logStr);
 	LOG(logHdr,"exit::");
 }
@@ -1049,7 +1049,7 @@ void getMessageFromReturnCode(int rc, char* msg)
 //right handlers
 void onMessage(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	if (md) {
@@ -1060,69 +1060,69 @@ void onMessage(MessageData* md)
 		sprintf(topic, "%.*s", md->topicName->lenstring.len,
 				md->topicName->lenstring.data);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"onMessage topic = %s",topic);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("onMessage topic = %s",topic);
 		LOG(logHdr,logStr);
 
 		if(!strcmp(topic,DMRESPONSE)){
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling messageResponse from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling messageResponse from onMessage");
 			LOG(logHdr,logStr);
 
 			messageResponse(md);
 		}
 
 		if (!strcmp(topic, dmUpdate)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling messageUpdate from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling messageUpdate from onMessage");
 			LOG(logHdr,logStr);
 
 			messageUpdate(md);
 		}
 
 		if (!strcmp(topic, dmObserve)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling messageObserve from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling messageObserve from onMessage");
 			LOG(logHdr,logStr);
 
 			messageObserve(md);
 		}
 
 		if (!strcmp(topic, dmCancel)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling messageCancel from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling messageCancel from onMessage");
 			LOG(logHdr,logStr);
 
 			messageCancel(md);
 		}
 
 		if (!strcmp(topic, dmReboot)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling messageForAction from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling messageForAction from onMessage");
 			LOG(logHdr,logStr);
 
 			messageForAction(md,1);
 		}
 
 		if (!strcmp(topic, dmFactoryReset)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling dmFactoryReset from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling dmFactoryReset from onMessage");
 			LOG(logHdr,logStr);
 
 			messageForAction(md,0);
 		}
 
 		if (!strcmp(topic, dmFirmwareDownload)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling dmFirmwareDownload from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling dmFirmwareDownload from onMessage");
 			LOG(logHdr,logStr);
 
 			messageFirmwareDownload(md);
 		}
 
 		if (!strcmp(topic, dmFirmwareUpdate)) {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling dmFirmwareUpdate from onMessage");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling dmFirmwareUpdate from onMessage");
 			LOG(logHdr,logStr);
 
 			messageFirmwareUpdate(md);
@@ -1131,14 +1131,14 @@ void onMessage(MessageData* md)
 		free(topic);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
 //Handler for Firmware Download request
 void messageFirmwareDownload(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc = RESPONSE_ACCEPTED;
@@ -1150,24 +1150,24 @@ void messageFirmwareDownload(MessageData* md)
 	cJSON * jsonPayload = cJSON_Parse(payload);
 	strcpy(currentRequestID, cJSON_GetObjectItem(jsonPayload, "reqId")->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"messageFirmwareDownload with reqId:%s",currentRequestID);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("messageFirmwareDownload with reqId:%s",currentRequestID);
 	LOG(logHdr,logStr);
 
 	if(dmClient.DeviceData.mgmt.firmware.state != FIRMWARESTATE_IDLE)
 	{
 		rc = BAD_REQUEST;
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Cannot download as the device is not in the idle state");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Cannot download as the device is not in the idle state");
 		LOG(logHdr,logStr);
 	}
 	else
 	{
 		rc = RESPONSE_ACCEPTED;
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Firmware Download Initiated");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Firmware Download Initiated");
 		LOG(logHdr,logStr);
 	}
 
@@ -1175,43 +1175,43 @@ void messageFirmwareDownload(MessageData* md)
 	publishActionResponse(RESPONSE, respmsg);
 
 	if(rc == RESPONSE_ACCEPTED){
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Calling Firmware Download callback");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Calling Firmware Download callback");
 		LOG(logHdr,logStr);
 
 		(*cbFirmwareDownload)();
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
 //Handler for Firmware update request
 void messageFirmwareUpdate(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int rc;
 	char respmsg[300];
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Update Firmware Request called, Firmware State: %d",
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Update Firmware Request called, Firmware State: %d",
 	        dmClient.DeviceData.mgmt.firmware.state);
 	LOG(logHdr,logStr);
 
 	if (dmClient.DeviceData.mgmt.firmware.state != FIRMWARE_DOWNLOADED) {
 		rc = BAD_REQUEST;
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Firmware state is not in Downloaded state while updating");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Firmware state is not in Downloaded state while updating");
 		LOG(logHdr,logStr);
 
 	} else {
 		rc = RESPONSE_ACCEPTED;
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Firmware Update Initiated");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Firmware Update Initiated");
 		LOG(logHdr,logStr);
 	}
 
@@ -1219,21 +1219,21 @@ void messageFirmwareUpdate(MessageData* md)
 	publishActionResponse(RESPONSE, respmsg);
 
 	if(rc == RESPONSE_ACCEPTED){
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Calling Firmware Update callback");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Calling Firmware Update callback");
 		LOG(logHdr,logStr);
 
 		(*cbFirmwareUpdate)();
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
 //Handler for Observe request
 void messageObserve(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int i = 0;
@@ -1248,8 +1248,8 @@ void messageObserve(MessageData* md)
 	cJSON* jreqId = cJSON_GetObjectItem(jsonPayload, "reqId");
 	strcpy(currentRequestID, jreqId->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Observe reqId: %s", currentRequestID);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Observe reqId: %s", currentRequestID);
 
 	cJSON_AddItemToObject(resPayload, "reqId",
 			cJSON_CreateString(currentRequestID));
@@ -1271,8 +1271,8 @@ void messageObserve(MessageData* md)
 
 		cJSON * value = cJSON_GetArrayItem(fields, i);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Observe called for fieldName:%s", fieldName->valuestring);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Observe called for fieldName:%s", fieldName->valuestring);
 
 		if (!strcmp(fieldName->valuestring, "mgmt.firmware")) {
 			dmClient.bObserve = true;
@@ -1289,8 +1289,8 @@ void messageObserve(MessageData* md)
 	respMsg = cJSON_Print(resPayload);
 	cJSON_Delete(resPayload);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Response Message:%s", respMsg);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Response Message:%s", respMsg);
 
 	//Publish the response to the IoTF
 	publishActionResponse(RESPONSE, respMsg);
@@ -1298,14 +1298,14 @@ void messageObserve(MessageData* md)
 	cJSON_Delete(jsonPayload);
 	free(respMsg);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
 //Handler for cancel observation request
 void messageCancel(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int i = 0;
@@ -1316,8 +1316,8 @@ void messageCancel(MessageData* md)
 	cJSON* jreqId = cJSON_GetObjectItem(jsonPayload, "reqId");
 	strcpy(currentRequestID, jreqId->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Cancel reqId: %s", currentRequestID);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Cancel reqId: %s", currentRequestID);
 
 	cJSON *d = cJSON_GetObjectItem(jsonPayload, "d");
 	cJSON *fields = cJSON_GetObjectItem(d, "fields");
@@ -1328,29 +1328,29 @@ void messageCancel(MessageData* md)
 
 		cJSON * value = cJSON_GetArrayItem(fields, i);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Cancel called for fieldName:%s", fieldName->valuestring);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Cancel called for fieldName:%s", fieldName->valuestring);
 
 		if (!strcmp(fieldName->valuestring, "mgmt.firmware")) {
 			dmClient.bObserve = false;
 			sprintf(respMsg,"{\"rc\":%d,\"reqId\":%s}",RESPONSE_SUCCESS,currentRequestID);
 
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Response Message:%s", respMsg);
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Response Message:%s", respMsg);
 
 			//Publish the response to the IoTF
 			publishActionResponse(RESPONSE, respMsg);
 		}
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
 //Handler for update location request
 void updateLocationRequest(cJSON* value)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	double latitude, longitude, elevation,accuracy;
@@ -1364,18 +1364,18 @@ void updateLocationRequest(cJSON* value)
 	measuredDateTime = cJSON_GetObjectItem(value,"measuredDateTime")->valuestring;
 	updatedDateTime = cJSON_GetObjectItem(value,"updatedDateTime")->valuestring;
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Calling updateLocationHandler");
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Calling updateLocationHandler");
 
 	updateLocationHandler(latitude, longitude, elevation,measuredDateTime,updatedDateTime,accuracy);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
 //Handler for update Firmware request
 void updateFirmwareRequest(cJSON* value) {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	char response[100];
@@ -1383,60 +1383,60 @@ void updateFirmwareRequest(cJSON* value) {
 	strcpy(dmClient.DeviceData.mgmt.firmware.version,
 			cJSON_GetObjectItem(value, "version")->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Firmware Version: %s",dmClient.DeviceData.mgmt.firmware.version);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Firmware Version: %s",dmClient.DeviceData.mgmt.firmware.version);
 	LOG(logHdr,logStr);
 
 	strcpy(dmClient.DeviceData.mgmt.firmware.name,
 			cJSON_GetObjectItem(value, "name")->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Name: %s",dmClient.DeviceData.mgmt.firmware.name);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Name: %s",dmClient.DeviceData.mgmt.firmware.name);
 	LOG(logHdr,logStr);
 
 	strcpy(dmClient.DeviceData.mgmt.firmware.url,
 			cJSON_GetObjectItem(value, "uri")->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"URI: %s",dmClient.DeviceData.mgmt.firmware.url);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("URI: %s",dmClient.DeviceData.mgmt.firmware.url);
 	LOG(logHdr,logStr);
 
 	strcpy(dmClient.DeviceData.mgmt.firmware.verifier,
 			cJSON_GetObjectItem(value, "verifier")->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Verifier: %s",dmClient.DeviceData.mgmt.firmware.verifier);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Verifier: %s",dmClient.DeviceData.mgmt.firmware.verifier);
 	LOG(logHdr,logStr);
 
 	dmClient.DeviceData.mgmt.firmware.state = cJSON_GetObjectItem(value,"state")->valueint;
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"State: %d",dmClient.DeviceData.mgmt.firmware.state);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("State: %d",dmClient.DeviceData.mgmt.firmware.state);
 	LOG(logHdr,logStr);
 
 	dmClient.DeviceData.mgmt.firmware.updateStatus = cJSON_GetObjectItem(value,"updateStatus")->valueint;
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"updateStatus: %d",dmClient.DeviceData.mgmt.firmware.updateStatus);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("updateStatus: %d",dmClient.DeviceData.mgmt.firmware.updateStatus);
 	LOG(logHdr,logStr);
 
 	strcpy(dmClient.DeviceData.mgmt.firmware.updatedDateTime,
 			cJSON_GetObjectItem(value, "updatedDateTime")->valuestring);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"updatedDateTime: %s",dmClient.DeviceData.mgmt.firmware.updatedDateTime);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("updatedDateTime: %s",dmClient.DeviceData.mgmt.firmware.updatedDateTime);
 	LOG(logHdr,logStr);
 
 	sprintf(response, "{\"rc\":%d,\"reqId\":\"%s\"}", UPDATE_SUCCESS,
 			currentRequestID);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-	sprintf(logStr,"Response: %s",response);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_STR("Response: %s",response);
 	LOG(logHdr,logStr);
 
 	publishActionResponse(RESPONSE, response);
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -1445,7 +1445,7 @@ void updateFirmwareRequest(cJSON* value) {
 //Currently only location and firmware updates are supported.
 void messageUpdate(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	int i = 0;
@@ -1456,8 +1456,8 @@ void messageUpdate(MessageData* md)
 		cJSON* jreqId = cJSON_GetObjectItem(jsonPayload, "reqId");
 		strcpy(currentRequestID, jreqId->valuestring);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Update reqId: %s",currentRequestID);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Update reqId: %s",currentRequestID);
 		LOG(logHdr,logStr);
 
 		cJSON *d = cJSON_GetObjectItem(jsonPayload, "d");
@@ -1467,50 +1467,50 @@ void messageUpdate(MessageData* md)
 			cJSON * field = cJSON_GetArrayItem(fields, i);
 			cJSON* fieldName = cJSON_GetObjectItem(field, "field");
 
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Update request received for fieldName: %s",fieldName->valuestring);
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Update request received for fieldName: %s",fieldName->valuestring);
 			LOG(logHdr,logStr);
 
 			cJSON * value = cJSON_GetObjectItem(field, "value");
 
 			if (!strcmp(fieldName->valuestring, "location")){
-				sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-				sprintf(logStr,"Calling updateLocationRequest");
+				LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+				LOG_STR("Calling updateLocationRequest");
 				LOG(logHdr,logStr);
 
 				updateLocationRequest(value);
 			}
 			else if (!strcmp(fieldName->valuestring, "mgmt.firmware")){
-				sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-				sprintf(logStr,"Calling updateFirmwareRequest");
+				LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+				LOG_STR("Calling updateFirmwareRequest");
 				LOG(logHdr,logStr);
 
 				updateFirmwareRequest(value);
 			}
 			else if (!strcmp(fieldName->valuestring, "metadata")){
-				sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-				sprintf(logStr,"METADATA not supported");
+				LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+				LOG_STR("METADATA not supported");
 				LOG(logHdr,logStr);
 			}
 			else if (!strcmp(fieldName->valuestring, "deviceInfo")){
-				sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-				sprintf(logStr,"deviceInfo not supported");
+				LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+				LOG_STR("deviceInfo not supported");
 				LOG(logHdr,logStr);
 			}
 			else{
-				sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-				sprintf(logStr,"Fieldname = %s",fieldName->valuestring);
+				LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+				LOG_STR("Fieldname = %s",fieldName->valuestring);
 				LOG(logHdr,logStr);
 			}
 		}
 		cJSON_Delete(jsonPayload);//Needs to delete the parsed pointer
 	} else{
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Error in parsing Json");
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Error in parsing Json");
 		LOG(logHdr,logStr);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -1520,7 +1520,7 @@ void messageUpdate(MessageData* md)
 //with the request Id action was initiated.
 void messageResponse(MessageData* md)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	if(cb != 0) {
@@ -1543,14 +1543,14 @@ void messageResponse(MessageData* md)
 		status= strtok(status, ":");
 		status= strtok(NULL, ":");
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"Status: %s reqID: %s payload: %s",status,reqID,pl);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("Status: %s reqID: %s payload: %s",status,reqID,pl);
 		LOG(logHdr,logStr);
 
 		if(!strcmp(currentRequestID,reqID))
 		{
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"%s == %s, Calling the callback",currentRequestID,reqID);
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("%s == %s, Calling the callback",currentRequestID,reqID);
 			LOG(logHdr,logStr);
 
 			interrupt = 1;
@@ -1558,14 +1558,14 @@ void messageResponse(MessageData* md)
 		}
 		else
 		{
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"%s != %s, Calling the callback",currentRequestID,reqID);
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("%s != %s, Calling the callback",currentRequestID,reqID);
 			LOG(logHdr,logStr);
 		}
 		free(pl);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
 
@@ -1573,7 +1573,7 @@ void messageResponse(MessageData* md)
 //Invoke the respective callback for action.
 void messageForAction(MessageData* md, bool isReboot)
 {
-	sprintf(logHdr,"%s:%d:%s:",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
         LOG(logHdr,"entry::");
 
 	if(cbReboot != 0 ){
@@ -1604,20 +1604,20 @@ void messageForAction(MessageData* md, bool isReboot)
 
 		strcpy(currentRequestID,reqID);
 
-		sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-		sprintf(logStr,"reqId: %s action: %s payload: %s",reqID, action,pl);
+		LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+		LOG_STR("reqId: %s action: %s payload: %s",reqID, action,pl);
 		LOG(logHdr,logStr);
 
 		if(isReboot){
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling Reboot callback");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling Reboot callback");
 			LOG(logHdr,logStr);
 
 			(*cbReboot)(reqID, action, payload);
 		}
 		else {
-			sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
-			sprintf(logStr,"Calling Factory Reset callback");
+			LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
+			LOG_STR("Calling Factory Reset callback");
 			LOG(logHdr,logStr);
 
 			(*cbFactoryReset)(reqID, action, payload);
@@ -1627,6 +1627,6 @@ void messageForAction(MessageData* md, bool isReboot)
 		free(pl);
 	}
 
-	sprintf(logHdr,"%s:%d:%s",__FILE__,__LINE__,__func__);
+	LOG_HDR("%s:%d:%s",__FILE__,__LINE__,__func__);
 	LOG(logHdr,"exit::");
 }
