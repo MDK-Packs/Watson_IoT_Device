@@ -15,6 +15,7 @@
  *    Lokesh Haralakatta  -  Added Logging Feature
  *******************************************************************************/
 
+#define MBEDTLS_ALLOW_PRIVATE_ACCESS
 #include "iotf_network_tls_wrapper.h"
 
 //Character strings to hold log header and log message to be dumped.
@@ -385,7 +386,7 @@ static uint32_t TickFreq;
             LOG(logHdr,logStr);
             goto exit;
           }
-          if((rc = mbedtls_pk_parse_keyfile(&(tlsInitData->pkey), tlsConnectData->pDevicePrivateKeyLocation, ""))!=0)
+          if((rc = mbedtls_pk_parse_keyfile(&(tlsInitData->pkey), tlsConnectData->pDevicePrivateKeyLocation, "", mbedtls_ctr_drbg_random, &(tlsInitData->ctr_drbg)))!=0)
           {
             LOG_HDR("%s:%d:%s:",__FILE__,__LINE__,__func__);
             LOG_STR("mbedtls_pk_parse_keyfile failed for Device Private Key with return code = 0x%x",-rc);
